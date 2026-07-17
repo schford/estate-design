@@ -1,0 +1,22 @@
+/* estate-design tokens — the Cookbook's frozen v5 "Front Door" set
+   (estate-hub src/app.css, locked 2026-07-07). Light-only by estate decision.
+   --est-seal: red = critical only. --est-brass: live/freshness labels only. */
+:root {
+  --est-paper: #fffcf0;
+  --est-paper-raised: #f2f0e5;
+  --est-ink: #100f0f;
+  --est-ink-soft: #282726;
+  --est-mut: #6f6e69;
+  --est-faint: #878680;
+  --est-rule: #e6e4d9;
+  --est-rule-strong: #100f0f;
+  --est-mb: #205ea6;
+  --est-cm: #66800b;
+  --est-seal: #af3029;
+  --est-brass: #bc5215;
+  --est-raise: rgba(16, 15, 15, 0.04);
+  --est-serif: 'Iowan Old Style', Palatino, 'Palatino Linotype', Georgia, serif;
+  --est-sans: -apple-system, 'Segoe UI', system-ui, Roboto, sans-serif;
+  --est-caps: var(--est-sans);
+  --est-mono: ui-monospace, 'Cascadia Code', Consolas, monospace;
+}
