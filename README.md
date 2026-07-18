@@ -11,7 +11,7 @@ pre-v0.3 heading rules keep working.
 
 Contents (hard cap, no component zoo): `tokens.css`, `Header`, `SearchOverlay`,
 `LiveChip`. Consumed at build time as an npm tarball dependency:
-`"estate-design": "https://github.com/schford/estate-design/archive/refs/tags/v0.3.0.tar.gz"`
+`"estate-design": "https://github.com/schford/estate-design/archive/refs/tags/v0.3.2.tar.gz"`
 
 Header contract: identical in every app, never forks. Brand is a green circle-H
 plus the labelled word "Home" → the home app; on sub-apps the app's own name
