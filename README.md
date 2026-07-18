@@ -16,7 +16,11 @@ and a later-loaded tokens.css silently clobbers same-selector app overrides
 
 Contents (hard cap, no component zoo): `tokens.css`, `Header`, `SearchOverlay`,
 `LiveChip`. Consumed at build time as an npm tarball dependency:
-`"estate-design": "https://github.com/schford/estate-design/archive/refs/tags/v0.3.2.tar.gz"`
+`"estate-design": "https://github.com/schford/estate-design/archive/refs/tags/v0.3.3.tar.gz"`
+
+Since v0.3.3 tokens.css also sets `html { scrollbar-gutter: stable }` — centred
+layouts (header `.est-in`, app content columns) must not shift when navigation
+crosses the scrollbar threshold. Don't re-add per-app scrollbar/overflow fixes.
 
 Header contract: identical in every app, never forks. Brand is a green circle-H
 plus the labelled word "Home" → the home app; on sub-apps the app's own name
