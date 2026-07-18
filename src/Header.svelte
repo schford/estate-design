@@ -66,7 +66,7 @@
   @media (max-width: 640px) {
     .est-em { display: none; }
     .est-search-label { display: none; }
-    .est-search { padding: 9px 11px; }
+    .est-search { padding: 0; width: 44px; height: 44px; justify-content: center; }
     .est-brand-word { display: none; }
     .est-brand-sep { display: none; }
   }
