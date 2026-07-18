@@ -1,22 +1,66 @@
-/* estate-design tokens — the Cookbook's frozen v5 "Front Door" set
-   (estate-hub src/app.css, locked 2026-07-07). Light-only by estate decision.
-   --est-seal: red = critical only. --est-brass: live/freshness labels only. */
+/* estate-design tokens — v0.3.0 "Tinted Tiles" set (design handoff 2026-07-18,
+   option 2d; supersedes the Cookbook v5 "Front Door" set). Light-only by estate
+   decision. --est-seal: critical only (terracotta since v0.3). --est-brass:
+   live/freshness labels only. --est-tint-*: one pastel per section, carried
+   through that section's subpages; -mut is its muted text pair. */
+
+@font-face {
+  font-family: 'Outfit';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('./fonts/outfit-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Outfit';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('./fonts/outfit-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
 :root {
-  --est-paper: #fffcf0;
-  --est-paper-raised: #f2f0e5;
-  --est-ink: #100f0f;
-  --est-ink-soft: #282726;
-  --est-mut: #6f6e69;
-  --est-faint: #878680;
-  --est-rule: #e6e4d9;
-  --est-rule-strong: #100f0f;
-  --est-mb: #205ea6;
-  --est-cm: #66800b;
-  --est-seal: #af3029;
+  --est-paper: #f4f2ec;
+  --est-paper-raised: #ffffff;
+  --est-ink: #33382b;
+  --est-ink-soft: #4a5040;
+  --est-mut: #89846f;
+  --est-faint: #a39e8a;
+  --est-rule: #e4e1d5;
+  --est-rule-strong: #33382b;
+  --est-mb: #5f7350;
+  --est-cm: #4a7a8a;
+  --est-seal: #cf6b4a;
   --est-brass: #bc5215;
-  --est-raise: rgba(16, 15, 15, 0.04);
-  --est-serif: 'Iowan Old Style', Palatino, 'Palatino Linotype', Georgia, serif;
-  --est-sans: -apple-system, 'Segoe UI', system-ui, Roboto, sans-serif;
+  --est-raise: rgba(51, 56, 43, 0.06);
+  --est-shadow-hover: 0 4px 14px rgba(51, 56, 43, 0.08);
+  --est-radius: 22px;
+  --est-radius-pill: 999px;
+
+  /* section tints (bg / muted-text pairs) */
+  --est-tint-mb: #e3ecdc;
+  --est-tint-mb-mut: #77836a;
+  --est-tint-cm: #dde7ec;
+  --est-tint-cm-mut: #6f8089;
+  --est-tint-cookbook: #f0e3d3;
+  --est-tint-cookbook-mut: #9a8264;
+  --est-tint-reading: #dde4ef;
+  --est-tint-reading-mut: #71809c;
+  --est-tint-systems: #e3ecdc;
+  --est-tint-systems-mut: #77836a;
+  --est-tint-knowledge: #efe0dc;
+  --est-tint-knowledge-mut: #a17565;
+  --est-tint-finances: #e9e4ef;
+  --est-tint-finances-mut: #84759e;
+  --est-tint-travel: #dcebec;
+  --est-tint-travel-mut: #628b8d;
+
+  /* type — Outfit everywhere since v0.3; --est-serif is kept as the display
+     alias so existing heading rules pick the new face without edits */
+  --est-sans: 'Outfit', -apple-system, 'Segoe UI', system-ui, Roboto, sans-serif;
+  --est-serif: var(--est-sans);
   --est-caps: var(--est-sans);
   --est-mono: ui-monospace, 'Cascadia Code', Consolas, monospace;
 }

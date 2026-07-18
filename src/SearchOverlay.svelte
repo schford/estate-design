@@ -35,9 +35,10 @@
 
 <style>
   .est-veil { position: fixed; inset: 0; z-index: 100;
-    background: rgba(16, 15, 15, 0.35); padding: 12vh 16px 0; }
-  .est-panel { max-width: 560px; margin: 0 auto; background: var(--est-paper);
-    border: 1px solid var(--est-rule-strong); }
+    background: rgba(51, 56, 43, 0.35); padding: 12vh 16px 0; }
+  .est-panel { max-width: 560px; margin: 0 auto; background: var(--est-paper-raised);
+    border-radius: var(--est-radius); overflow: hidden;
+    box-shadow: 0 10px 30px rgba(51, 56, 43, 0.18); }
   .est-panel input { width: 100%; box-sizing: border-box;
     font: 1rem var(--est-sans); color: var(--est-ink); background: transparent;
     padding: 12px 14px; border: 0; border-bottom: 1px solid var(--est-rule);
