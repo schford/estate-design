@@ -18,4 +18,6 @@ plus the labelled word "Home" → the home app; on sub-apps the app's own name
 follows as a separate link to that app's root (`[H] Home · kb`). Search is a
 white pill opening the overlay (federated `/api/search` on home); Emergency is
 a terracotta pill (`--est-seal`; critical only, estate-wide). On phones it
-collapses to circle-H + app name + search icon.
+collapses to circle-H + app name + search icon. Apps align/blend the header by
+setting `--est-content-max` / `--est-content-pad` / `--est-header-bg` on the page
+(defaults 1060px / 20px / paper).

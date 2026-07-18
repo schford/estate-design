@@ -9,6 +9,7 @@ const REQUIRED = [
   '--est-mut', '--est-faint', '--est-rule', '--est-rule-strong',
   '--est-mb', '--est-cm', '--est-seal', '--est-brass', '--est-raise',
   '--est-shadow-hover', '--est-radius', '--est-radius-pill',
+  '--est-content-max', '--est-content-pad',
   '--est-tint-mb', '--est-tint-mb-mut', '--est-tint-cm', '--est-tint-cm-mut',
   '--est-tint-cookbook', '--est-tint-cookbook-mut',
   '--est-tint-reading', '--est-tint-reading-mut',

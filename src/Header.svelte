@@ -38,8 +38,8 @@
 {/if}
 
 <style>
-  .est-header { position: sticky; top: 0; z-index: 10; background: var(--est-paper); }
-  .est-in { max-width: 1060px; margin: 0 auto; padding: 12px 20px;
+  .est-header { position: sticky; top: 0; z-index: 10; background: var(--est-header-bg, var(--est-paper)); }
+  .est-in { max-width: var(--est-content-max, 1060px); margin: 0 auto; padding: 12px var(--est-content-pad, 20px);
     display: flex; align-items: center; gap: 10px; }
   .est-brand-group { display: flex; align-items: center; gap: 10px; min-width: 0; }
   .est-brand { display: flex; align-items: center; gap: 10px;

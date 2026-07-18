@@ -39,6 +39,10 @@
   --est-radius: 22px;
   --est-radius-pill: 999px;
 
+  /* per-app layout knobs the Header reads (content width + side padding) */
+  --est-content-max: 1060px;
+  --est-content-pad: 20px;
+
   /* section tints (bg / muted-text pairs) */
   --est-tint-mb: #e3ecdc;
   --est-tint-mb-mut: #77836a;
