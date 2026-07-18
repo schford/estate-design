@@ -68,3 +68,10 @@
   --est-caps: var(--est-sans);
   --est-mono: ui-monospace, 'Cascadia Code', Consolas, monospace;
 }
+
+/* Reserve the scrollbar gutter so centred layouts (header .est-in, app content
+   columns) don't shift ~half a scrollbar width when navigating between pages
+   that do/don't scroll. Overlay scrollbars (phones) reserve nothing. v0.3.3. */
+html {
+  scrollbar-gutter: stable;
+}
