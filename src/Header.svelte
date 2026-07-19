@@ -1,6 +1,6 @@
 <script>
   import SearchOverlay from './SearchOverlay.svelte';
-  let { app, homeUrl, emergencyUrl, searchApi } = $props();
+  let { app, homeUrl, emergencyUrl, searchApi, appUrl = '/' } = $props();
   let searchOpen = $state(false);
   const isHome = app === 'Home';
   function onKey(e) {
@@ -19,7 +19,7 @@
       <a class="est-brand" href={homeUrl}><span class="est-mark">H</span><span class="est-brand-word">Home</span></a>
       {#if !isHome}
         <span class="est-brand-sep" aria-hidden="true">·</span>
-        <a class="est-app" href="/">{app}</a>
+        <a class="est-app" href={appUrl}>{app}</a>
       {/if}
     </nav>
     <button class="est-search" type="button" aria-label="Search" onclick={() => (searchOpen = true)}>
