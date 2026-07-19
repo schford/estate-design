@@ -15,18 +15,27 @@ and a later-loaded tokens.css silently clobbers same-selector app overrides
 (bit reading-app, 2026-07-18).
 
 Contents (hard cap, no component zoo): `tokens.css`, `Header`, `SearchOverlay`,
-`LiveChip`. Consumed at build time as an npm tarball dependency:
-`"estate-design": "https://github.com/schford/estate-design/archive/refs/tags/v0.3.3.tar.gz"`
+`LiveChip`, `BottomTabs` (v0.4.0). Consumed at build time as an npm tarball dependency:
+`"estate-design": "https://github.com/schford/estate-design/archive/refs/tags/v0.4.0.tar.gz"`
 
 Since v0.3.3 tokens.css also sets `html { scrollbar-gutter: stable }` — centred
 layouts (header `.est-in`, app content columns) must not shift when navigation
 crosses the scrollbar threshold. Don't re-add per-app scrollbar/overflow fixes.
 
-Header contract: identical in every app, never forks. Brand is a green circle-H
-plus the labelled word "Home" → the home app; on sub-apps the app's own name
-follows as a separate link to that app's root (`[H] Home · kb`). Search is a
-white pill opening the overlay (federated `/api/search` on home); Emergency is
-a terracotta pill (`--est-seal`; critical only, estate-wide). On phones it
-collapses to circle-H + app name + search icon. Apps align/blend the header by
-setting `--est-content-max` / `--est-content-pad` / `--est-header-bg` on the page
+Header contract (v0.4.0 "Adaptive Tabs" — nav design of record:
+`C:\claude_code\constellation\NAV-DESIGN.md`): identical in every app, never forks.
+Brand is a green circle-H plus the word "Home" → `/`. Desktop (≥900px): destination
+switcher pills from the `destinations` prop (`{key,label,href}[]`, active one filled
+per `current`) — the consuming app supplies them (home-app: `src/lib/nav/nav.js`
+filtered by identity, with Home omitted because the brand is the home link); search
+is a white pill opening the overlay (`searchApi`); Emergency is a terracotta pill
+(`--est-seal`; critical only, estate-wide). Phone (<900px): circle-H + current-module
+label + search icon + round Emergency icon — Emergency stays visible at every width.
+The pre-0.4 `app`/`appUrl` props are gone.
+
+`BottomTabs` (v0.4.0): fixed phone-only tab bar (hidden ≥900px). Props: `items`
+(same destination shape; icon keys `home`/`cookbook`/`reading`/`dining`/`guides`),
+`current`, and `chat` — a reserved Phase-6 bubble slot that renders nothing while
+false. Safe-area inset padding built in. Apps align/blend the shell by setting
+`--est-content-max` / `--est-content-pad` / `--est-header-bg` on the page
 (defaults 1060px / 20px / paper).
