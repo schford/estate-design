@@ -34,22 +34,48 @@
 </div>
 
 <style>
-  .est-veil { position: fixed; inset: 0; z-index: 100;
-    background: rgba(51, 56, 43, 0.35); padding: 12vh 16px 0; }
-  .est-panel { max-width: 560px; margin: 0 auto; background: var(--est-paper-raised);
-    border-radius: var(--est-radius); overflow: hidden;
-    box-shadow: 0 10px 30px rgba(51, 56, 43, 0.18); }
-  .est-panel input { width: 100%; box-sizing: border-box;
-    font: 1rem var(--est-sans); color: var(--est-ink); background: transparent;
-    padding: 12px 14px; border: 0; border-bottom: 1px solid var(--est-rule);
-    outline: none; }
-  .est-panel ul { list-style: none; margin: 0; padding: 4px 0;
+  .est-veil {
+    position: fixed; inset: 0; z-index: 100;
+    background: rgba(40, 34, 82, 0.25);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    padding: 12vh 16px 0;
+  }
+  .est-panel {
+    max-width: 560px; margin: 0 auto; overflow: hidden;
+    border-radius: var(--est-radius);
+    background: var(--est-glass);
+    backdrop-filter: var(--est-glass-blur);
+    -webkit-backdrop-filter: var(--est-glass-blur);
+    border: 0.5px solid var(--est-glass-border);
+    box-shadow: var(--est-glass-shadow);
+  }
+  .est-panel input {
+    width: 100%; box-sizing: border-box;
+    font: 17px var(--est-sans); color: var(--est-ink); background: transparent;
+    padding: 15px 18px; border: 0;
+    border-bottom: 0.5px solid rgba(22, 22, 42, 0.10);
+    outline: none;
+  }
+  .est-panel input::placeholder { color: var(--est-mut); }
+  .est-panel ul { list-style: none; margin: 0; padding: 6px 0;
     max-height: 50vh; overflow-y: auto; }
-  .est-panel li { display: flex; align-items: baseline; gap: 10px;
-    padding: 8px 14px; }
-  .est-panel li a { color: var(--est-ink); text-decoration: none; }
+  .est-panel li { display: flex; align-items: baseline; gap: 12px;
+    padding: 10px 18px; transition: background 200ms ease; }
+  .est-panel li:hover { background: rgba(70, 60, 160, 0.06); }
+  .est-panel li a { font-size: 15px; color: var(--est-ink); text-decoration: none; }
   .est-panel li a:hover { text-decoration: underline; }
-  .est-badge { margin-left: auto; font-family: var(--est-caps);
-    font-size: 0.58rem; letter-spacing: 0.14em; text-transform: uppercase;
-    color: var(--est-faint); }
+  /* Result badge: sentence case, no tracking — the v0.4 uppercase-letterspaced
+     micro-caps are gone estate-wide. */
+  .est-badge { margin-left: auto; font-family: var(--est-sans);
+    font-size: 13px; color: var(--est-mut); white-space: nowrap; }
+
+  @media (prefers-reduced-transparency: reduce) {
+    .est-veil { background: rgba(40, 34, 82, 0.55); backdrop-filter: none; -webkit-backdrop-filter: none; }
+    .est-panel { background: rgba(255, 255, 255, 0.92); backdrop-filter: none; -webkit-backdrop-filter: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .est-panel li { transition-duration: 1ms; }
+  }
 </style>
