@@ -14,8 +14,9 @@
 {/if}
 
 <style>
-  .est-chip { font-size: 0.85rem; color: var(--est-ink-soft); }
-  .est-chip-label { font-family: var(--est-caps); font-size: 0.58rem;
-    letter-spacing: 0.14em; text-transform: uppercase; color: var(--est-brass);
-    margin-right: 6px; }
+  /* Label and value read as one quiet line: sentence case, no tracking. The
+     v0.4 brass micro-caps are retired — --est-brass survives as a token name
+     only, and no longer means brass. */
+  .est-chip { font-family: var(--est-sans); font-size: 13.5px; color: var(--est-ink); }
+  .est-chip-label { font-size: 13.5px; color: var(--est-mut); margin-right: 6px; }
 </style>

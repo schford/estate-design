@@ -1,12 +1,13 @@
 {
   "name": "estate-design",
-  "version": "0.4.0",
-  "description": "Estate constellation shared design: tokens + header + search overlay + live chip. No component zoo.",
+  "version": "0.5.0",
+  "description": "Estate constellation shared design: tokens + aurora + header + bottom tabs + search overlay + live chip + icons. No component zoo.",
   "type": "module",
   "svelte": "./src/index.js",
   "exports": {
     ".": { "svelte": "./src/index.js", "default": "./src/index.js" },
-    "./tokens.css": "./src/tokens.css"
+    "./tokens.css": "./src/tokens.css",
+    "./icons.js": "./src/icons.js"
   },
   "scripts": { "test": "node --test test/*.test.js" },
   "peerDependencies": { "svelte": "^5.0.0" }
