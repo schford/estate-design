@@ -134,6 +134,22 @@ test('SearchOverlay keeps its API and debounce, and wears the new veil + glass',
   assert.match(overlay, /border-radius:\s*var\(--est-radius\)/);
 });
 
+test('SearchOverlay row hover goes through the semantic role, not a literal', () => {
+  assert.match(overlay, /\.est-panel li:hover\s*\{\s*background:\s*var\(--est-row-hover\)/);
+});
+
+test('no component hardcodes a value the v0.6 roles now own', () => {
+  // Same rgba the roles carry — components must read the token instead. The
+  // literals still live in tokens.css; ALL is src/, which includes it, so check
+  // the components only.
+  const components = ['Header.svelte', 'BottomTabs.svelte', 'SearchOverlay.svelte',
+                      'LiveChip.svelte', 'Aurora.svelte'].map(read).join('\n');
+  assert.doesNotMatch(components, /rgba\(70,\s*60,\s*160,\s*0\.06\)/);
+  assert.doesNotMatch(components, /rgba\(110,\s*108,\s*138,\s*0\.12\)/);
+  assert.doesNotMatch(components, /rgba\(208,\s*51,\s*92,\s*0\.12\)/);
+  assert.doesNotMatch(components, /rgba\(255,\s*255,\s*255,\s*0\.85\)/);
+});
+
 test('LiveChip keeps its fetch contract and pinned class names', () => {
   assert.match(chip, /fetch\(src\)/);
   assert.match(chip, /r\.status === 200/);
@@ -167,8 +183,8 @@ test('index exports the full v0.5.0 surface', () => {
   }
 });
 
-test('package version is bumped for the Nebula release', () => {
-  assert.equal(pkg.version, '0.5.0');
+test('package version is bumped for the semantic-roles release', () => {
+  assert.equal(pkg.version, '0.6.0');
   assert.equal(pkg.exports['./tokens.css'], './src/tokens.css');
 });
 

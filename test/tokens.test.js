@@ -32,8 +32,72 @@ const REQUIRED = [
   '--est-ease'
 ];
 
+// v0.6 semantic role tier — aliases over the Nebula primitives plus four new
+// alpha values. Apps consume these; the primitives above stay for compatibility.
+const ROLES = [
+  '--est-tint-info', '--est-tint-info-fg',
+  '--est-tint-editorial', '--est-tint-editorial-fg',
+  '--est-tint-neutral', '--est-tint-neutral-fg',
+  '--est-tint-crit', '--est-tint-crit-fg',
+  '--est-control-hover', '--est-row-hover'
+];
+
+// Declarations as authored, so the alias tests can follow var() chains to the
+// literal a browser would land on. Comments are stripped first: the role block
+// documents its resolved values in trailing comments.
+const DECLS = (() => {
+  const bare = css.replace(/\/\*[\s\S]*?\*\//g, '');
+  const out = new Map();
+  for (const [, name, value] of bare.matchAll(/(--est-[\w-]+)\s*:\s*([^;]+);/g)) {
+    out.set(name, value.trim());
+  }
+  return out;
+})();
+
+const resolve = (name, seen = new Set()) => {
+  assert.equal(seen.has(name), false, `${name} is a circular alias`);
+  seen.add(name);
+  const value = DECLS.get(name);
+  assert.ok(value !== undefined, `${name} is not defined`);
+  const alias = value.match(/^var\(\s*(--est-[\w-]+)\s*\)$/);
+  return alias ? resolve(alias[1], seen) : value;
+};
+
 test('tokens.css defines every contract token', () => {
   for (const t of REQUIRED) assert.match(css, new RegExp(`${t}\\s*:`), `${t} missing`);
+});
+
+test('tokens.css defines the v0.6 semantic roles', () => {
+  for (const t of ROLES) assert.match(css, new RegExp(`${t}\\s*:`), `${t} missing`);
+});
+
+test('v0.6 adds roles without dropping or renaming a single v0.5 token', () => {
+  // Public package: every earlier name must still be declared, not just present
+  // in a comment. REQUIRED is the v0.5 contract list.
+  for (const t of REQUIRED) assert.ok(DECLS.has(t), `${t} no longer declared`);
+});
+
+test('the role aliases resolve onto the existing Nebula primitives — no new hues', () => {
+  assert.equal(resolve('--est-tint-info'), DECLS.get('--est-tint-mb'));
+  assert.equal(resolve('--est-tint-info-fg'), '#4C63D2');
+  assert.equal(resolve('--est-tint-editorial'), DECLS.get('--est-tint-cm'));
+  assert.equal(resolve('--est-tint-editorial-fg'), '#7B4FD1');
+  assert.equal(resolve('--est-tint-neutral-fg'), '#4A486B'); // --est-ink-soft
+  assert.equal(resolve('--est-tint-crit-fg'), '#D0335C');    // --est-seal
+});
+
+test('the four new role values are exact', () => {
+  assert.equal(resolve('--est-tint-neutral'), 'rgba(110, 108, 138, 0.12)');
+  assert.equal(resolve('--est-tint-crit'), 'rgba(208, 51, 92, 0.12)');
+  assert.equal(resolve('--est-control-hover'), 'rgba(255, 255, 255, 0.85)');
+  assert.equal(resolve('--est-row-hover'), 'rgba(70, 60, 160, 0.06)');
+});
+
+test('every role pair has both a wash and a foreground', () => {
+  for (const role of ['info', 'editorial', 'neutral', 'crit']) {
+    assert.ok(DECLS.has(`--est-tint-${role}`), `--est-tint-${role} missing`);
+    assert.ok(DECLS.has(`--est-tint-${role}-fg`), `--est-tint-${role}-fg missing`);
+  }
 });
 
 test('tokens.css is light-only', () => {

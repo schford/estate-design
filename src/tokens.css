@@ -1,11 +1,17 @@
-/* estate-design tokens — v0.5.0 "Nebula" set (design handoff 2026-08, Nebula
-   variant; supersedes the v0.3 "Tinted Tiles" set). Light-only by estate
-   decision — there is deliberately no dark-mode media query here, and adding
-   one is not a straight inversion (see README).
+/* estate-design tokens — v0.6.0: the v0.5 "Nebula" set (design handoff 2026-08,
+   Nebula variant; supersedes the v0.3 "Tinted Tiles" set) plus a semantic role
+   tier. Light-only by estate decision — there is deliberately no dark-mode media
+   query here, and adding one is not a straight inversion (see README).
 
    Every --est-* NAME from v0.4 survives; only the values changed. Semantics are
    unchanged too: --est-tint-X is a pale section background, --est-tint-X-mut is
    the readable accent foreground that sits on it.
+
+   v0.6 adds the "Semantic roles" block below: aliases onto the existing Nebula
+   primitives (no new hues) plus four new alpha values. Apps consume the roles —
+   info / editorial / neutral / crit, plus the hover surfaces — rather than the
+   primitives, so the estate keeps one colour vocabulary. Nothing was removed:
+   this is a public package, so every earlier token name is still defined.
 
    The typeface is the platform system font. The self-hosted display face that
    shipped through v0.4 is retired, and its webfont declarations plus src/fonts/
@@ -88,6 +94,20 @@
   --est-tint-travel-mut: #2B84C4;
   --est-tint-knowledge: rgba(123, 79, 209, 0.12);
   --est-tint-knowledge-mut: #7B4FD1;
+
+  /* --- Semantic roles (v0.6) — apps consume these, not primitives --- */
+  /* links (values existed since v0.5, previously unused) */
+  /* --est-link: #4257C9;  --est-link-hover: #7B4FD1;  (already defined above) */
+  --est-tint-info:          var(--est-tint-mb);        /* informational wash */
+  --est-tint-info-fg:       var(--est-tint-mb-mut);    /* #4C63D2 */
+  --est-tint-editorial:     var(--est-tint-cm);        /* recommendation/assistant wash */
+  --est-tint-editorial-fg:  var(--est-tint-cm-mut);    /* #7B4FD1 */
+  --est-tint-neutral:       rgba(110, 108, 138, 0.12); /* NEW value */
+  --est-tint-neutral-fg:    var(--est-ink-soft);
+  --est-tint-crit:          rgba(208, 51, 92, 0.12);   /* NEW value */
+  --est-tint-crit-fg:       var(--est-seal);
+  --est-control-hover:      rgba(255, 255, 255, 0.85); /* NEW value */
+  --est-row-hover:          rgba(70, 60, 160, 0.06);   /* NEW value */
 
   /* type — the system UI stack everywhere. --est-serif and --est-caps survive as
      aliases so pre-v0.5 rules keep resolving without edits. */
