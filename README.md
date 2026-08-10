@@ -1,7 +1,8 @@
 # estate-design
 
 Shared design layer for the estate app constellation (see
-`C:\claude_code\constellation\SPEC.md`). **v0.5.0 is the "Nebula" set** (design
+`C:\claude_code\constellation\SPEC.md`). **v0.6.0 is the "Nebula" set plus a
+semantic role tier** (see *What changed in v0.6.0*). Nebula (design
 handoff 2026-08, Nebula variant): one calm pale-lavender canvas, a slowly
 drifting blue/violet aurora behind everything, and controls that float above the
 content as a translucent glass layer. Colour identifies rather than fills. It
@@ -25,6 +26,34 @@ git/tarball dependency pinned to the release tag.
 Since v0.3.3 tokens.css also sets `html { scrollbar-gutter: stable }` — centred
 layouts must not shift when navigation crosses the scrollbar threshold. Don't
 re-add per-app scrollbar/overflow fixes.
+
+## What changed in v0.6.0
+
+**Semantic roles.** `tokens.css` gains a role tier that apps consume instead of
+the primitives, so the estate speaks one colour vocabulary: mainly white
+(neutral), blue tint (informational), violet tint (editorial), seal red
+(critical only). The roles are aliases onto the existing Nebula primitives —
+**no new hues** — plus four new alpha values.
+
+| Role | Wash | Foreground | Means |
+| --- | --- | --- | --- |
+| info | `--est-tint-info` | `--est-tint-info-fg` | informational: status, callouts, neutral-positive badges |
+| editorial | `--est-tint-editorial` | `--est-tint-editorial-fg` | recommendations, assistant/authored content |
+| neutral | `--est-tint-neutral` | `--est-tint-neutral-fg` | the default; most chips and badges |
+| crit | `--est-tint-crit` | `--est-tint-crit-fg` | critical/emergency only — never decorative |
+
+Plus `--est-control-hover` (hover fill for control surfaces) and
+`--est-row-hover` (list/table row hover; `--est-active` stays reserved for the
+*selected* state), and `--est-link` / `--est-link-hover` — defined since v0.5,
+now the required route for every link.
+
+Nothing was removed. This is a public package: every v0.4/v0.5 token name is
+still defined, including the ones the role tier supersedes in practice
+(`--est-brass`, `--est-cyan*`, the per-section `--est-tint-*` pairs).
+
+Component sweep: `SearchOverlay`'s row hover now reads `var(--est-row-hover)`
+instead of the literal. Rendered output is unchanged — v0.6 is a token
+substitution, not a restyle.
 
 ## What changed in v0.5.0
 

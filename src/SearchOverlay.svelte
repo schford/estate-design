@@ -62,7 +62,7 @@
     max-height: 50vh; overflow-y: auto; }
   .est-panel li { display: flex; align-items: baseline; gap: 12px;
     padding: 10px 18px; transition: background 200ms ease; }
-  .est-panel li:hover { background: rgba(70, 60, 160, 0.06); }
+  .est-panel li:hover { background: var(--est-row-hover); }
   .est-panel li a { font-size: 15px; color: var(--est-ink); text-decoration: none; }
   .est-panel li a:hover { text-decoration: underline; }
   /* Result badge: sentence case, no tracking — the v0.4 uppercase-letterspaced
