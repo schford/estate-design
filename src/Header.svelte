@@ -141,7 +141,7 @@
       display: flex;
       justify-content: center;
       padding: 0 var(--est-content-pad, 20px);
-      margin-bottom: clamp(28px, 5vw, 52px);
+      margin-bottom: clamp(18px, 2.5vw, 28px);
     }
 
     .est-in {

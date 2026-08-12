@@ -1,6 +1,6 @@
 {
   "name": "estate-design",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "Estate constellation shared design: tokens + aurora + header + bottom tabs + search overlay + live chip + icons. No component zoo.",
   "type": "module",
   "svelte": "./src/index.js",

@@ -183,8 +183,8 @@ test('index exports the full v0.5.0 surface', () => {
   }
 });
 
-test('package version is bumped for the semantic-roles release', () => {
-  assert.equal(pkg.version, '0.6.0');
+test('package version is bumped for the header-density release', () => {
+  assert.equal(pkg.version, '0.6.1');
   assert.equal(pkg.exports['./tokens.css'], './src/tokens.css');
 });
 

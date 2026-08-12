@@ -27,6 +27,15 @@ Since v0.3.3 tokens.css also sets `html { scrollbar-gutter: stable }` — centre
 layouts must not shift when navigation crosses the scrollbar threshold. Don't
 re-add per-app scrollbar/overflow fixes.
 
+## What changed in v0.6.1
+
+**Header gap tightened.** The desktop floating pill's `margin-bottom` drops from
+`clamp(28px, 5vw, 52px)` to `clamp(18px, 2.5vw, 28px)`. At full desktop/iPad
+widths every page was paying 52px of empty air below the header before its own
+hero even started; consumers (home-app front door) were already clawing it back
+with negative margins. Those workarounds should be removed when taking this
+version.
+
 ## What changed in v0.6.0
 
 **Semantic roles.** `tokens.css` gains a role tier that apps consume instead of
