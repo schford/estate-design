@@ -4,7 +4,9 @@
   // homeUrl: the H-mark target. destinations: the destination-switcher config
   // (from the consuming app's nav config). current: active destination key.
   // chat is intentionally absent here — the bubble is a BottomTabs/app concern.
-  let { homeUrl = '/', emergencyUrl, searchApi, destinations = [], current = 'home' } = $props();
+  // account: optional {label, href} — the signed-in person's account link (or
+  // "Sign in"); never a nav destination.
+  let { homeUrl = '/', emergencyUrl, searchApi, destinations = [], current = 'home', account = null } = $props();
   let searchOpen = $state(false);
   const currentLabel = $derived(destinations.find((d) => d.key === current)?.label ?? 'Home');
   function onKey(e) {
@@ -52,6 +54,13 @@
       <span class="est-em-label">Emergency</span>
       <span class="est-em-short" aria-hidden="true">SOS</span>
     </a>
+
+    {#if account}
+      <a class="est-account" href={account.href} aria-label={account.label}>
+        <span class="est-account-icon">{@render glyph('person', 16)}</span>
+        <span class="est-account-label">{account.label}</span>
+      </a>
+    {/if}
   </div>
 </header>
 
@@ -129,6 +138,16 @@
   .est-em-label { display: none; }
   .est-em-short { display: inline; }
 
+  .est-account {
+    display: inline-flex; align-items: center; justify-content: center; gap: 7px; flex: none;
+    width: 38px; height: 38px; border-radius: 13px; text-decoration: none;
+    color: var(--est-ink-soft); background: var(--est-control); border: 0.5px solid var(--est-bar-border);
+    transition: background 200ms ease;
+  }
+  .est-account:hover { background: var(--est-paper-raised); }
+  .est-account-icon { display: flex; }
+  .est-account-label { display: none; }
+
   /* ------------------------------------------------------------------ *
    * Desktop (>= 720px): the floating glass pill.
    * ------------------------------------------------------------------ */
@@ -200,6 +219,11 @@
     .est-em-icon { display: none; }
     .est-em-label { display: inline; }
     .est-em-short { display: none; }
+
+    .est-account { width: auto; height: auto; padding: 8px 14px; border-radius: 16px; font-family: var(--est-sans);
+      font-size: 15px; color: var(--est-mut); border-color: var(--est-glass-border); }
+    .est-account-icon { display: none; }
+    .est-account-label { display: inline; white-space: nowrap; }
   }
 
   /* Glass falls back to a near-solid fill when the reader has asked for less

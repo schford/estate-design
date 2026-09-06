@@ -27,6 +27,13 @@ Since v0.3.3 tokens.css also sets `html { scrollbar-gutter: stable }` — centre
 layouts must not shift when navigation crosses the scrollbar threshold. Don't
 re-add per-app scrollbar/overflow fixes.
 
+## What changed in v0.7.0
+
+**Header `account` prop.** `Header` takes an optional `account={{ label, href }}`
+— the signed-in person's account link (or "Sign in") — rendered as a pill on
+desktop and a `person` glyph (new in `icons.js`) on phone. It is never a nav
+destination. Omitting the prop leaves the header exactly as it was.
+
 ## What changed in v0.6.1
 
 **Header gap tightened.** The desktop floating pill's `margin-bottom` drops from

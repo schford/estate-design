@@ -162,11 +162,11 @@ test('LiveChip keeps its fetch contract and pinned class names', () => {
 
 test('ICONS covers every key the constellation needs, on a 24 grid', () => {
   for (const k of ['home', 'cookbook', 'reading', 'dining', 'guides', 'systems',
-                   'finances', 'travel', 'knowledge', 'search', 'warning', 'chevron']) {
+                   'finances', 'travel', 'knowledge', 'search', 'person', 'warning', 'chevron']) {
     assert.match(icons, new RegExp(`\\b${k}:\\s*\\{`), `ICONS.${k} missing`);
   }
   const grids = icons.match(/vb: '0 0 24 24'/g) ?? [];
-  assert.equal(grids.length, 12, 'every icon must declare the 24x24 viewBox');
+  assert.equal(grids.length, 13, 'every icon must declare the 24x24 viewBox');
 });
 
 test('ICONS reuses the v0.4 BottomTabs geometry verbatim', () => {
@@ -183,8 +183,8 @@ test('index exports the full v0.5.0 surface', () => {
   }
 });
 
-test('package version is bumped for the header-density release', () => {
-  assert.equal(pkg.version, '0.6.1');
+test('package version is bumped for the account-prop release', () => {
+  assert.equal(pkg.version, '0.7.0');
   assert.equal(pkg.exports['./tokens.css'], './src/tokens.css');
 });
 

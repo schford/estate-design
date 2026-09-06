@@ -83,6 +83,10 @@ export const ICONS = {
     vb: '0 0 24 24',
     d: ['M11 4.2a6.8 6.8 0 1 0 0 13.6 6.8 6.8 0 0 0 0-13.6Z', 'M15.9 15.9 20.4 20.4']
   },
+  person: {
+    vb: '0 0 24 24',
+    d: ['M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8z', 'M4 21c0-4 3.6-7 8-7s8 3 8 7']
+  },
   // warning triangle — the Emergency affordance. The dot is a zero-length
   // segment: a round linecap renders it as a disc.
   warning: {
