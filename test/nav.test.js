@@ -59,9 +59,16 @@ test('Header desktop is the floating glass pill', () => {
   assert.match(header, /top:\s*16px/);
   assert.match(header, /z-index:\s*30/);
   assert.match(header, /background:\s*var\(--est-bar\)/);
-  assert.match(header, /background:\s*var\(--est-grad-brand\)/); // H mark
+  assert.match(header, /background:\s*var\(--est-grad-brand\)/); // brand mark ground
   assert.match(header, /background:\s*var\(--est-em-grad\)/); // Emergency pill
   assert.match(header, /background:\s*var\(--est-active\)/); // active tab pill
+});
+
+test('Header brand tile is the home mark, not a letter', () => {
+  assert.match(header, /class="est-mark-svg"/);
+  assert.match(header, /viewBox="0 0 100 100"/);
+  assert.match(header, /<circle cx="65" cy="65" r="11"/); // the Emergency button
+  assert.doesNotMatch(header, /class="est-mark" aria-hidden="true">H</);
 });
 
 test('Header no longer reads the --est-header-bg hook', () => {
@@ -183,8 +190,8 @@ test('index exports the full v0.5.0 surface', () => {
   }
 });
 
-test('package version is bumped for the account-prop release', () => {
-  assert.equal(pkg.version, '0.7.0');
+test('package version is bumped for the brand-mark release', () => {
+  assert.equal(pkg.version, '0.8.0');
   assert.equal(pkg.exports['./tokens.css'], './src/tokens.css');
 });
 

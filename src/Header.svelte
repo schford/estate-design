@@ -1,7 +1,7 @@
 <script>
   import SearchOverlay from './SearchOverlay.svelte';
   import { ICONS } from './icons.js';
-  // homeUrl: the H-mark target. destinations: the destination-switcher config
+  // homeUrl: the brand-mark target. destinations: the destination-switcher config
   // (from the consuming app's nav config). current: active destination key.
   // chat is intentionally absent here — the bubble is a BottomTabs/app concern.
   // account: optional {label, href} — the signed-in person's account link (or
@@ -30,7 +30,25 @@
 <header class="est-header">
   <div class="est-in">
     <a class="est-brand" href={homeUrl} aria-label="Home">
-      <span class="est-mark" aria-hidden="true">H</span>
+      <span class="est-mark" aria-hidden="true">
+        <!-- The home mark (design handoff 2026-09-17, concept 3c "three and a
+             button"): three dashboard tiles + the Emergency button, bottom-right,
+             where it lives on the site. Same geometry as the app icon
+             (home-app static/icon.svg); ground = token est-grad-brand via the span,
+             button = token est-em-grad, its two stops. -->
+        <svg class="est-mark-svg" viewBox="0 0 100 100" aria-hidden="true">
+          <defs>
+            <linearGradient id="est-mark-em" x1="0.16" y1="-0.09" x2="0.84" y2="1.09">
+              <stop offset="0" stop-color="#FF5C7A" />
+              <stop offset="1" stop-color="#E0456B" />
+            </linearGradient>
+          </defs>
+          <rect x="22" y="22" width="26" height="26" rx="7" fill="#fff" />
+          <rect x="52" y="22" width="26" height="26" rx="7" fill="#fff" />
+          <rect x="22" y="52" width="26" height="26" rx="7" fill="#fff" />
+          <circle cx="65" cy="65" r="11" fill="url(#est-mark-em)" />
+        </svg>
+      </span>
       <span class="est-brand-word">Home</span>
       <span class="est-brand-current" aria-hidden="true">{currentLabel}</span>
     </a>
@@ -94,11 +112,10 @@
   .est-mark {
     width: 30px; height: 30px; border-radius: 10px; flex: none;
     background: var(--est-grad-brand);
-    color: #ffffff;
     display: flex; align-items: center; justify-content: center;
-    font-size: 14px; font-weight: 600;
     box-shadow: 0 4px 14px -2px rgba(110, 139, 255, 0.7);
   }
+  .est-mark-svg { width: 100%; height: 100%; display: block; }
   .est-brand-word { display: none; font-size: 17px; font-weight: 600; letter-spacing: -0.02em; }
   .est-brand-current {
     font-size: 17px; font-weight: 600; letter-spacing: -0.02em; color: var(--est-ink);
@@ -180,7 +197,7 @@
     }
 
     .est-brand { gap: 10px; padding: 4px 12px 4px 4px; }
-    .est-mark { width: 32px; height: 32px; border-radius: 11px; font-size: 15px; }
+    .est-mark { width: 32px; height: 32px; border-radius: 11px; }
     .est-brand-word { display: block; }
     .est-brand-current { display: none; }
 

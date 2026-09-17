@@ -27,6 +27,15 @@ Since v0.3.3 tokens.css also sets `html { scrollbar-gutter: stable }` — centre
 layouts must not shift when navigation crosses the scrollbar threshold. Don't
 re-add per-app scrollbar/overflow fixes.
 
+## What changed in v0.8.0
+
+**Header brand tile is the home mark.** The `H` letter in `.est-mark` is replaced
+by the app icon's mark (design handoff 2026-09-17, concept 3c "three and a
+button": three white dashboard tiles + the Emergency button bottom-right). The
+tile keeps `--est-grad-brand` as its ground; the button is drawn with the two
+stops of `--est-em-grad`. Same geometry as home-app's `static/icon.svg`, so the
+Home Screen icon, favicon and nav tile match. No prop or layout change.
+
 ## What changed in v0.7.0
 
 **Header `account` prop.** `Header` takes an optional `account={{ label, href }}`
