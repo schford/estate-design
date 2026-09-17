@@ -27,6 +27,21 @@ Since v0.3.3 tokens.css also sets `html { scrollbar-gutter: stable }` — centre
 layouts must not shift when navigation crosses the scrollbar threshold. Don't
 re-add per-app scrollbar/overflow fixes.
 
+## What changed in v0.9.0
+
+**Phone header air removed.** The phone `.est-in` top padding drops its
+`max(52px, …)` floor and is now `calc(env(safe-area-inset-top, 0px) + 12px)`.
+The floor came from the Nebula mock's fake status bar; real Safari starts the
+page below the status bar and reports a 0px inset (iOS 26.5 and 27.0, verified
+2026-09-17), so every phone page paid 52px of empty air before the header row.
+A Home Screen (standalone) launch still clears the notch through the inset.
+
+**BottomTabs fits five labels.** `.est-tab` side padding drops from 14px to
+6px so five 13px labels (Home / Cookbook / Reading / Forecast / Guides — the
+admin set) fit a 375pt phone without ellipsising. Six tabs do **not** fit at
+13px on anything narrower than 402pt — a Phase-4 (Dining) decision, not a
+package concern.
+
 ## What changed in v0.8.0
 
 **Header brand tile is the home mark.** The `H` letter in `.est-mark` is replaced

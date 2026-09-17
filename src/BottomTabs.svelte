@@ -62,7 +62,10 @@
   .est-tab {
     display: flex; flex-direction: column; align-items: center; justify-content: center;
     gap: 3px; min-width: 0; min-height: 46px;
-    padding: 6px 14px;
+    /* 6px sides, not 14px: five 13px labels (Home/Cookbook/Reading/Forecast/
+       Guides) measure 241pt in the system font and must fit a 375pt phone
+       (323pt of bar) without ellipsising. Touch width stays >= 48pt (Home). */
+    padding: 6px 6px;
     border-radius: 16px;
     text-decoration: none;
     color: var(--est-mut);

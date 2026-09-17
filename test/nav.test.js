@@ -54,6 +54,14 @@ test('Header phone/desktop boundary is 720px, mobile-first', () => {
   assert.doesNotMatch(header, /900px/);
 });
 
+test('Header phone top padding is the safe-area inset alone — no 52px floor (v0.9.0)', () => {
+  // The 52px floor came from the Nebula mock, whose phone frame drew its own
+  // status bar. Real Safari starts the page below the status bar and reports a
+  // 0px inset (verified iOS 26.5 + 27.0, 2026-09-17), so the floor was dead air.
+  assert.doesNotMatch(header, /max\(52px/);
+  assert.match(header, /padding:\s*calc\(env\(safe-area-inset-top, 0px\) \+ 12px\) 18px 22px/);
+});
+
 test('Header desktop is the floating glass pill', () => {
   assert.match(header, /position:\s*sticky/);
   assert.match(header, /top:\s*16px/);
@@ -97,6 +105,13 @@ test('BottomTabs wears the bar surface and the shared active pill', () => {
 test('BottomTabs draws from the shared icon set, not inline paths', () => {
   assert.match(tabs, /import \{ ICONS \} from '\.\/icons\.js'/);
   assert.doesNotMatch(tabs, /<path d="M/); // no hard-coded geometry left
+});
+
+test('BottomTabs tab side padding leaves room for five 13px labels at 375pt (v0.9.0)', () => {
+  // Five labels (Home/Cookbook/Reading/Forecast/Guides) measure 241pt at 13px in
+  // the system font; 14px side padding pushed the row to 381pt on a 350pt bar.
+  assert.match(tabs, /\.est-tab\s*\{[^}]*padding:\s*6px 6px;/);
+  assert.doesNotMatch(tabs, /padding:\s*6px 14px/);
 });
 
 /* ----------------------------------------------------------------- Aurora */
@@ -190,8 +205,8 @@ test('index exports the full v0.5.0 surface', () => {
   }
 });
 
-test('package version is bumped for the brand-mark release', () => {
-  assert.equal(pkg.version, '0.8.0');
+test('package version is bumped for the phone-shell release', () => {
+  assert.equal(pkg.version, '0.9.0');
   assert.equal(pkg.exports['./tokens.css'], './src/tokens.css');
 });
 

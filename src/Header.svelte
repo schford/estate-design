@@ -98,7 +98,13 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    padding: max(52px, calc(env(safe-area-inset-top, 0px) + 12px)) 18px 22px;
+    /* Top = the status-bar inset plus 12px. No fixed floor: Safari starts the
+       page below the status bar and reports a 0px inset (iOS 26.5 + 27.0,
+       2026-09-17); the inset only bites in a Home Screen launch, where it
+       carries the row clear of the notch. The old 52px floor (a max() against
+       the inset) came from the Nebula mock's fake status bar and was 52px of
+       dead air in Safari. */
+    padding: calc(env(safe-area-inset-top, 0px) + 12px) 18px 22px;
   }
 
   .est-brand {
