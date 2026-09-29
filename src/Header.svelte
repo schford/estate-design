@@ -250,12 +250,14 @@
   }
 
   /* ------------------------------------------------------------------ *
-   * Mid widths (720–1179.98px): with six destinations the full row needs
-   * ~1135px, so it compacts in two steps rather than letting the pills run
-   * under the search box. Every destination pill stays; pill text stays 15px.
+   * Mid widths (720–1259.98px): with six destinations the full row needs
+   * ~1150px of viewport in SF and ~1225px in a font 15% wider (Linux's
+   * fallback sans is close to that), so it compacts in three steps rather
+   * than letting the pills run under the search box. Every destination pill
+   * stays; pill text stays 15px down to 800px and 14px below it.
    * ------------------------------------------------------------------ */
 
-  @media (min-width: 720px) and (max-width: 1179.98px) {
+  @media (min-width: 720px) and (max-width: 1259.98px) {
     .est-search {
       width: 38px; height: 38px; min-width: 0;
       justify-content: center; padding: 0; border-radius: 13px;
@@ -264,10 +266,10 @@
     .est-pill { padding: 8px 12px; }
   }
 
-  /* Below 1000px the Emergency, account and brand controls take their short
+  /* Below 1060px the Emergency, account and brand controls take their short
      forms: SOS, the person icon, the home mark alone (the link keeps its
      "Home" name). */
-  @media (min-width: 720px) and (max-width: 999.98px) {
+  @media (min-width: 720px) and (max-width: 1059.98px) {
     .est-in { gap: 6px; }
     .est-brand { padding: 4px; }
     .est-brand-word { display: none; }
@@ -278,6 +280,15 @@
     .est-account-icon { display: flex; }
     .est-account-label { display: none; }
     .est-pill { padding: 8px 9px; }
+  }
+
+  /* Below 800px the pills go to 14px text and 8px sides, the hairline divider
+     goes and the row tightens to 4px gaps. */
+  @media (min-width: 720px) and (max-width: 799.98px) {
+    .est-in { gap: 4px; }
+    .est-divider { display: none; }
+    .est-em { padding: 9px 10px; }
+    .est-pill { font-size: 14px; padding: 8px; }
   }
 
   /* Glass falls back to a near-solid fill when the reader has asked for less

@@ -91,20 +91,23 @@ const mediaBlock = (src, query) => {
   return null;
 };
 
-test('Header compacts below 1180px: icon-only search, tighter pills (v0.10.2)', () => {
-  // Six destinations: the full row needs ~1135px of viewport, so the search box
-  // gives up its label (and its 200px floor) before the pills run under it.
-  const mid = mediaBlock(header, '(min-width: 720px) and (max-width: 1179.98px)');
-  assert.ok(mid, 'no 720–1179.98px block');
+test('Header compacts below 1260px: icon-only search, tighter pills (v0.10.3)', () => {
+  // Six destinations: the full row needs ~1150px of viewport in SF and ~1225px in a
+  // font 15% wider (Linux CI's fallback is close to that), so the search box gives
+  // up its label (and its 200px floor) before the pills run under it.
+  const mid = mediaBlock(header, '(min-width: 720px) and (max-width: 1259.98px)');
+  assert.ok(mid, 'no 720–1259.98px block');
+  assert.doesNotMatch(header, /max-width: 1179\.98px/);
   assert.match(mid, /\.est-search\s*\{[^}]*min-width:\s*0/);
   assert.match(mid, /\.est-search\s*\{[^}]*width:\s*38px/);
   assert.match(mid, /\.est-search-label\s*\{\s*display:\s*none/);
   assert.match(mid, /\.est-pill\s*\{[^}]*padding:\s*8px 12px/);
 });
 
-test('Header below 1000px: SOS, the account icon and the mark alone (v0.10.2)', () => {
-  const narrow = mediaBlock(header, '(min-width: 720px) and (max-width: 999.98px)');
-  assert.ok(narrow, 'no 720–999.98px block');
+test('Header below 1060px: SOS, the account icon and the mark alone (v0.10.3)', () => {
+  const narrow = mediaBlock(header, '(min-width: 720px) and (max-width: 1059.98px)');
+  assert.ok(narrow, 'no 720–1059.98px block');
+  assert.doesNotMatch(header, /max-width: 999\.98px/);
   assert.match(narrow, /\.est-em-label\s*\{\s*display:\s*none/);
   assert.match(narrow, /\.est-em-short\s*\{\s*display:\s*inline/);
   assert.match(narrow, /\.est-account-label\s*\{\s*display:\s*none/);
@@ -113,6 +116,16 @@ test('Header below 1000px: SOS, the account icon and the mark alone (v0.10.2)', 
   assert.match(narrow, /\.est-brand-word\s*\{\s*display:\s*none/);
   // never hides a destination
   assert.doesNotMatch(narrow, /\.est-(pill|switch)\s*\{[^}]*display:\s*none/);
+});
+
+test('Header below 800px: 14px pills, 8px padding, no divider (v0.10.3)', () => {
+  const tight = mediaBlock(header, '(min-width: 720px) and (max-width: 799.98px)');
+  assert.ok(tight, 'no 720–799.98px block');
+  assert.match(tight, /\.est-pill\s*\{[^}]*font-size:\s*14px/);
+  assert.match(tight, /\.est-pill\s*\{[^}]*padding:\s*8px/);
+  assert.match(tight, /\.est-divider\s*\{\s*display:\s*none/);
+  assert.match(tight, /\.est-in\s*\{[^}]*gap:\s*4px/);
+  assert.doesNotMatch(tight, /\.est-(pill|switch)\s*\{[^}]*display:\s*none/);
 });
 
 test('Header desktop brand never shrinks under its word, pill text never under 14px (v0.10.2)', () => {
@@ -258,8 +271,8 @@ test('index exports the full v0.5.0 surface', () => {
   }
 });
 
-test('package version is bumped for the mid-width header release', () => {
-  assert.equal(pkg.version, '0.10.2');
+test('package version is bumped for the wide-font header release', () => {
+  assert.equal(pkg.version, '0.10.3');
   assert.equal(pkg.exports['./tokens.css'], './src/tokens.css');
 });
 

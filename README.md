@@ -27,6 +27,21 @@ Since v0.3.3 tokens.css also sets `html { scrollbar-gutter: stable }` — centre
 layouts must not shift when navigation crosses the scrollbar threshold. Don't
 re-add per-app scrollbar/overflow fixes.
 
+## What changed in v0.10.3
+
+**Header holds with fonts up to ~20% wider than SF.** v0.10.2's steps were tuned in SF on a Mac
+and left 19px spare at 720px; Linux CI's fallback sans is wider and ran the pills under the search
+box again at 720 and 1000px. Steps now come earlier, and a third one is added (all desktop-only; the
+phone layer is untouched, and in SF at 1260px and up the header renders exactly as v0.10.1):
+
+- **720–1259.98px** (was 1179.98): icon-only search, pill side padding 12px.
+- **720–1059.98px** (was 999.98): SOS, account icon, home mark alone, pill side padding 9px, gap 6px.
+- **720–799.98px** (new): pill text 14px with 8px sides, divider hidden, gap 4px, SOS padding 10px.
+
+Measured in home-app as admin (five pills + account), spare row space at the tightest point of
+each step, SF / a font calibrated 15% wider / 20% wider: 720px 69/33/18, 800px 86/46/31, 1060px
+101/30/7, 1260px 109/35/5. A font 15% wider than SF keeps the full header at 1280px.
+
 ## What changed in v0.10.2
 
 **Header compacts between 720 and 1180px.** With six destinations the full desktop row needs
@@ -220,9 +235,10 @@ surface, 26px radius. Inside: a 32×32 11px-radius gradient `H` mark plus the
 word "Home" (the whole lockup links to `homeUrl`), a hairline divider, the
 destination pills (15px; active = `--est-active` fill + inset specular highlight
 + soft glow, 220ms), a recessed "Search everything" pill, the Emergency
-gradient pill and the account pill. Below 1180px the search pill becomes a 38px
-icon square; below 1000px Emergency reads "SOS", the account shows its person
-icon and the lockup drops the word "Home" (v0.10.2).
+gradient pill and the account pill. Below 1260px the search pill becomes a 38px
+icon square; below 1060px Emergency reads "SOS", the account shows its person
+icon and the lockup drops the word "Home"; below 800px the pills drop to 14px
+and the divider goes (v0.10.3).
 
 **Phone (<720px)** is a compact, **non-sticky** header row: the `H` mark plus
 the *adaptive current-section label* (`est-brand-current` — a deliberate
