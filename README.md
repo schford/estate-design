@@ -27,6 +27,12 @@ Since v0.3.3 tokens.css also sets `html { scrollbar-gutter: stable }` — centre
 layouts must not shift when navigation crosses the scrollbar threshold. Don't
 re-add per-app scrollbar/overflow fixes.
 
+## What changed in v0.10.1
+
+**BottomTabs: slots give their whole width to the label.** `.est-tab` side padding 2px → 0 and
+the gap between slots 2px → 0, so a label has about 58px on a 390pt phone. With six equal slots
+an 11px "Cookbook" was clipped in wider fallback fonts (Linux CI); SF on iOS always fitted.
+
 ## What changed in v0.10.0
 
 **BottomTabs: six labelled slots, Liquid Glass capsule.** The bar now spans the width (8px

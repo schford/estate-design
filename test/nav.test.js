@@ -117,6 +117,9 @@ test('BottomTabs lays out six equal labelled slots, full width and low (v0.10.0)
   assert.match(tabs, /width="21" height="21"/);
   assert.match(tabs, /padding:\s*0 8px max\(10px, calc\(env\(safe-area-inset-bottom, 0px\) - 8px\)\)/);
   assert.match(tabs, /\.est-tabs-in\s*\{[^}]*max-width:\s*520px/);
+  // v0.10.1: every pixel of the slot goes to the label (wider fallback fonts clipped "Cookbook")
+  assert.match(tabs, /\.est-tab\s*\{[^}]*padding:\s*6px 0;/);
+  assert.match(tabs, /\.est-tabs-in\s*\{[^}]*gap:\s*0;/);
   assert.doesNotMatch(tabs, /font-size:\s*13px/);
 });
 
@@ -212,7 +215,7 @@ test('index exports the full v0.5.0 surface', () => {
 });
 
 test('package version is bumped for the six-slot tab bar release', () => {
-  assert.equal(pkg.version, '0.10.0');
+  assert.equal(pkg.version, '0.10.1');
   assert.equal(pkg.exports['./tokens.css'], './src/tokens.css');
 });
 

@@ -47,7 +47,9 @@
 
   .est-tabs-in {
     display: flex;
-    gap: 2px;
+    /* No gap and no side padding inside a slot: on a 390pt phone that leaves each
+       label 58px, which an 11px "Cookbook" needs in wider fallback fonts. */
+    gap: 0;
     padding: 6px;
     width: 100%;
     max-width: 520px;
@@ -64,7 +66,7 @@
     flex: 1 1 0;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
     gap: 2px; min-width: 0; min-height: 50px;
-    padding: 6px 2px;
+    padding: 6px 0;
     border-radius: 20px;
     text-decoration: none;
     color: var(--est-mut);
