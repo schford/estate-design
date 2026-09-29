@@ -211,8 +211,8 @@ test('index exports the full v0.5.0 surface', () => {
   }
 });
 
-test('package version is bumped for the phone-shell release', () => {
-  assert.equal(pkg.version, '0.9.0');
+test('package version is bumped for the six-slot tab bar release', () => {
+  assert.equal(pkg.version, '0.10.0');
   assert.equal(pkg.exports['./tokens.css'], './src/tokens.css');
 });
 
