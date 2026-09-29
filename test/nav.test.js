@@ -95,11 +95,14 @@ test('BottomTabs is a fixed, phone-only floating bar with a safe-area inset', ()
   assert.match(tabs, /chat/); // documented chat-bubble slot
 });
 
-test('BottomTabs wears the bar surface and the shared active pill', () => {
+test('BottomTabs wears the bar surface and a Liquid Glass capsule (v0.10.0)', () => {
   assert.match(tabs, /background:\s*var\(--est-bar\)/);
   assert.match(tabs, /backdrop-filter:\s*var\(--est-bar-blur\)/);
-  assert.match(tabs, /min-height:\s*46px/);
-  assert.match(tabs, /background:\s*var\(--est-active\)/);
+  assert.match(tabs, /\.est-tab\.on\s*\{[^}]*background:\s*var\(--est-tint-info\)/);
+  assert.match(tabs, /\.est-tab\.on\s*\{[^}]*color:\s*var\(--est-tint-info-fg\)/);
+  assert.match(tabs, /fill:\s*currentColor/);
+  assert.match(tabs, /fill-opacity:\s*0\.22/);
+  assert.doesNotMatch(tabs, /var\(--est-active\)/);
 });
 
 test('BottomTabs draws from the shared icon set, not inline paths', () => {
@@ -107,11 +110,14 @@ test('BottomTabs draws from the shared icon set, not inline paths', () => {
   assert.doesNotMatch(tabs, /<path d="M/); // no hard-coded geometry left
 });
 
-test('BottomTabs tab side padding leaves room for five 13px labels at 375pt (v0.9.0)', () => {
-  // Five labels (Home/Cookbook/Reading/Forecast/Guides) measure 241pt at 13px in
-  // the system font; 14px side padding pushed the row to 381pt on a 350pt bar.
-  assert.match(tabs, /\.est-tab\s*\{[^}]*padding:\s*6px 6px;/);
-  assert.doesNotMatch(tabs, /padding:\s*6px 14px/);
+test('BottomTabs lays out six equal labelled slots, full width and low (v0.10.0)', () => {
+  assert.match(tabs, /\.est-tab\s*\{[^}]*flex:\s*1 1 0/);
+  assert.match(tabs, /\.est-tab\s*\{[^}]*min-height:\s*50px/);
+  assert.match(tabs, /\.est-tab-lbl\s*\{[^}]*font-size:\s*11px/);
+  assert.match(tabs, /width="21" height="21"/);
+  assert.match(tabs, /padding:\s*0 8px max\(10px, calc\(env\(safe-area-inset-bottom, 0px\) - 8px\)\)/);
+  assert.match(tabs, /\.est-tabs-in\s*\{[^}]*max-width:\s*520px/);
+  assert.doesNotMatch(tabs, /font-size:\s*13px/);
 });
 
 /* ----------------------------------------------------------------- Aurora */

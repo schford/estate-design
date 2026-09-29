@@ -27,6 +27,17 @@ Since v0.3.3 tokens.css also sets `html { scrollbar-gutter: stable }` — centre
 layouts must not shift when navigation crosses the scrollbar threshold. Don't
 re-add per-app scrollbar/overflow fixes.
 
+## What changed in v0.10.0
+
+**BottomTabs: six labelled slots, Liquid Glass capsule.** The bar now spans the width (8px
+sides, capped at 520px) with up to six equal slots — 21px icon over an 11px label — and sits
+lower: `max(10px, inset - 8px)` off the bottom (26px on a home-indicator phone, was 44px). The
+selected tab is a capsule filling its slot (`--est-tint-info`), icon and label tinted
+(`--est-tint-info-fg`, label 600) and the glyph soft-filled. The bar itself carries no colour.
+Basis: iOS 26/27 tab bars (Apple DTS: the capsule is the system-standard indicator; HIG: keep
+labels, prefer filled symbols). Bar footprint is 64px — apps re-clear their chat bubble and
+page bottom padding. Props and class names are unchanged.
+
 ## What changed in v0.9.0
 
 **Phone header air removed.** The phone `.est-in` top padding drops its
@@ -206,12 +217,13 @@ floats and the page shows through it. Apps still set `--est-content-max` /
 Props unchanged: `items` (same destination shape; icon keys index `ICONS`),
 `current`, and `chat` — a reserved bubble slot that renders nothing while false.
 
-A floating glass bar: `position: fixed`, centred, 26px radius, 6px padding, bar
-surface, `z-index: 30`, bottom offset
-`max(22px, calc(env(safe-area-inset-bottom, 0px) + 10px))`. Items are ≥46px tall
-with a 19px icon over a 13px label; the active item gets the same pill + glow as
-the desktop tabs. Hidden at ≥720px.
+A floating glass bar: `position: fixed`, full width less 8px sides (capped at
+520px), 26px radius, 6px padding, bar surface, `z-index: 30`, bottom offset
+`max(10px, calc(env(safe-area-inset-bottom, 0px) - 8px))`. Up to six equal slots,
+each ≥50px tall with a 21px icon over an 11px label; the active slot is a capsule
+(`--est-tint-info`) with icon and label in `--est-tint-info-fg` and the glyph
+soft-filled. Hidden at ≥720px.
 
 Because the bar floats and is fixed, **the app must reserve the space** with
-page bottom padding (bar height + 22px + safe-area) — the bar no longer occupies
-document flow at the bottom of the page.
+page bottom padding (64px of bar + the bottom offset + a gap) — the bar does not
+occupy document flow at the bottom of the page.
