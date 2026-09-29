@@ -202,7 +202,7 @@
       box-shadow: var(--est-bar-shadow);
     }
 
-    .est-brand { gap: 10px; padding: 4px 12px 4px 4px; }
+    .est-brand { gap: 10px; padding: 4px 12px 4px 4px; flex: none; }
     .est-mark { width: 32px; height: 32px; border-radius: 11px; }
     .est-brand-word { display: block; }
     .est-brand-current { display: none; }
@@ -247,6 +247,37 @@
       font-size: 15px; color: var(--est-mut); border-color: var(--est-glass-border); }
     .est-account-icon { display: none; }
     .est-account-label { display: inline; white-space: nowrap; }
+  }
+
+  /* ------------------------------------------------------------------ *
+   * Mid widths (720–1179.98px): with six destinations the full row needs
+   * ~1135px, so it compacts in two steps rather than letting the pills run
+   * under the search box. Every destination pill stays; pill text stays 15px.
+   * ------------------------------------------------------------------ */
+
+  @media (min-width: 720px) and (max-width: 1179.98px) {
+    .est-search {
+      width: 38px; height: 38px; min-width: 0;
+      justify-content: center; padding: 0; border-radius: 13px;
+    }
+    .est-search-label { display: none; }
+    .est-pill { padding: 8px 12px; }
+  }
+
+  /* Below 1000px the Emergency, account and brand controls take their short
+     forms: SOS, the person icon, the home mark alone (the link keeps its
+     "Home" name). */
+  @media (min-width: 720px) and (max-width: 999.98px) {
+    .est-in { gap: 6px; }
+    .est-brand { padding: 4px; }
+    .est-brand-word { display: none; }
+    .est-em { padding: 9px 13px; }
+    .est-em-label { display: none; }
+    .est-em-short { display: inline; }
+    .est-account { width: 38px; height: 38px; padding: 0; border-radius: 13px; }
+    .est-account-icon { display: flex; }
+    .est-account-label { display: none; }
+    .est-pill { padding: 8px 9px; }
   }
 
   /* Glass falls back to a near-solid fill when the reader has asked for less

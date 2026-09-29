@@ -79,6 +79,50 @@ test('Header brand tile is the home mark, not a letter', () => {
   assert.doesNotMatch(header, /class="est-mark" aria-hidden="true">H</);
 });
 
+// The body of the first @media block whose prelude is exactly `query`.
+const mediaBlock = (src, query) => {
+  const at = src.indexOf(`@media ${query} {`);
+  if (at < 0) return null;
+  let depth = 0;
+  for (let i = src.indexOf('{', at); i < src.length; i++) {
+    if (src[i] === '{') depth++;
+    else if (src[i] === '}' && --depth === 0) return src.slice(src.indexOf('{', at) + 1, i);
+  }
+  return null;
+};
+
+test('Header compacts below 1180px: icon-only search, tighter pills (v0.10.2)', () => {
+  // Six destinations: the full row needs ~1135px of viewport, so the search box
+  // gives up its label (and its 200px floor) before the pills run under it.
+  const mid = mediaBlock(header, '(min-width: 720px) and (max-width: 1179.98px)');
+  assert.ok(mid, 'no 720–1179.98px block');
+  assert.match(mid, /\.est-search\s*\{[^}]*min-width:\s*0/);
+  assert.match(mid, /\.est-search\s*\{[^}]*width:\s*38px/);
+  assert.match(mid, /\.est-search-label\s*\{\s*display:\s*none/);
+  assert.match(mid, /\.est-pill\s*\{[^}]*padding:\s*8px 12px/);
+});
+
+test('Header below 1000px: SOS, the account icon and the mark alone (v0.10.2)', () => {
+  const narrow = mediaBlock(header, '(min-width: 720px) and (max-width: 999.98px)');
+  assert.ok(narrow, 'no 720–999.98px block');
+  assert.match(narrow, /\.est-em-label\s*\{\s*display:\s*none/);
+  assert.match(narrow, /\.est-em-short\s*\{\s*display:\s*inline/);
+  assert.match(narrow, /\.est-account-label\s*\{\s*display:\s*none/);
+  assert.match(narrow, /\.est-account-icon\s*\{\s*display:\s*flex/);
+  assert.match(narrow, /\.est-account\s*\{[^}]*width:\s*38px/);
+  assert.match(narrow, /\.est-brand-word\s*\{\s*display:\s*none/);
+  // never hides a destination
+  assert.doesNotMatch(narrow, /\.est-(pill|switch)\s*\{[^}]*display:\s*none/);
+});
+
+test('Header desktop brand never shrinks under its word, pill text never under 14px (v0.10.2)', () => {
+  const desk = mediaBlock(header, '(min-width: 720px)');
+  assert.match(desk, /\.est-brand\s*\{[^}]*flex:\s*none/);
+  const sizes = [...header.matchAll(/\.est-pill\s*\{[^}]*font-size:\s*([\d.]+)px/g)].map((m) => Number(m[1]));
+  assert.ok(sizes.length > 0);
+  for (const s of sizes) assert.ok(s >= 14, `pill font-size ${s}px < 14px`);
+});
+
 test('Header no longer reads the --est-header-bg hook', () => {
   assert.doesNotMatch(header, /--est-header-bg/);
 });
@@ -214,8 +258,8 @@ test('index exports the full v0.5.0 surface', () => {
   }
 });
 
-test('package version is bumped for the six-slot tab bar release', () => {
-  assert.equal(pkg.version, '0.10.1');
+test('package version is bumped for the mid-width header release', () => {
+  assert.equal(pkg.version, '0.10.2');
   assert.equal(pkg.exports['./tokens.css'], './src/tokens.css');
 });
 

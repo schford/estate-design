@@ -27,6 +27,22 @@ Since v0.3.3 tokens.css also sets `html { scrollbar-gutter: stable }` — centre
 layouts must not shift when navigation crosses the scrollbar threshold. Don't
 re-add per-app scrollbar/overflow fixes.
 
+## What changed in v0.10.2
+
+**Header compacts between 720 and 1180px.** With six destinations the full desktop row needs
+about 1135px of viewport, so below that the pills ran under the search box. Two steps now, both
+desktop-only (the phone layer is untouched, and at 1180px and up the header renders as v0.10.1):
+
+- **720–1179.98px:** search becomes the 38px icon-only square (label hidden, no 200px floor);
+  pill side padding 15px → 12px.
+- **720–999.98px:** also the "SOS" Emergency pill, the account's person icon (the link keeps
+  the person's name as its accessible name), the home mark without the word "Home" (the link
+  keeps its "Home" name), pill side padding 9px, row gap 6px.
+
+The brand lockup no longer shrinks on desktop (`flex: none`), so "Home" is never clipped. Pill
+text stays 15px and no destination is hidden. Measured in home-app as admin (five pills +
+account): tightest fit is 19px of spare row at 720px and 37px at 1180px.
+
 ## What changed in v0.10.1
 
 **BottomTabs: slots give their whole width to the label.** `.est-tab` side padding 2px → 0 and
@@ -203,8 +219,10 @@ above the header no longer does. Centred, capped at `--est-content-max`, bar
 surface, 26px radius. Inside: a 32×32 11px-radius gradient `H` mark plus the
 word "Home" (the whole lockup links to `homeUrl`), a hairline divider, the
 destination pills (15px; active = `--est-active` fill + inset specular highlight
-+ soft glow, 220ms), a recessed "Search everything" pill, and the Emergency
-gradient pill.
++ soft glow, 220ms), a recessed "Search everything" pill, the Emergency
+gradient pill and the account pill. Below 1180px the search pill becomes a 38px
+icon square; below 1000px Emergency reads "SOS", the account shows its person
+icon and the lockup drops the word "Home" (v0.10.2).
 
 **Phone (<720px)** is a compact, **non-sticky** header row: the `H` mark plus
 the *adaptive current-section label* (`est-brand-current` — a deliberate
