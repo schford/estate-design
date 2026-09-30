@@ -16,6 +16,18 @@ const pkg = JSON.parse(readFileSync(new URL('../package.json', import.meta.url),
 const SRC = readdirSync(new URL('../src', import.meta.url));
 const ALL = SRC.map(read).join('\n');
 
+// The body of the first @media block whose prelude is exactly `query`.
+const mediaBlock = (src, query) => {
+  const at = src.indexOf(`@media ${query} {`);
+  if (at < 0) return null;
+  let depth = 0;
+  for (let i = src.indexOf('{', at); i < src.length; i++) {
+    if (src[i] === '{') depth++;
+    else if (src[i] === '}' && --depth === 0) return src.slice(src.indexOf('{', at) + 1, i);
+  }
+  return null;
+};
+
 /* ----------------------------------------------------------------- Header */
 
 test('Header takes a destinations switcher and a current key', () => {
@@ -54,18 +66,24 @@ test('Header phone/desktop boundary is 720px, mobile-first', () => {
   assert.doesNotMatch(header, /900px/);
 });
 
-test('Header phone top padding is the safe-area inset alone — no 52px floor (v0.9.0)', () => {
-  // The 52px floor came from the Nebula mock, whose phone frame drew its own
-  // status bar. Real Safari starts the page below the status bar and reports a
-  // 0px inset (verified iOS 26.5 + 27.0, 2026-09-17), so the floor was dead air.
+test('Header phone padding: safe-area inset + 12px on top, 10px below (v0.11.0)', () => {
+  // The 52px floor came from the Nebula mock's fake status bar (gone v0.9.0). The
+  // bottom went 22px → 10px when page titles moved directly under the header
+  // (home-app DESIGN-2026-09-30-page-titles: header → title ≤ 12px).
   assert.doesNotMatch(header, /max\(52px/);
-  assert.match(header, /padding:\s*calc\(env\(safe-area-inset-top, 0px\) \+ 12px\) 18px 22px/);
+  assert.match(header, /padding:\s*calc\(env\(safe-area-inset-top, 0px\) \+ 12px\) 18px 10px/);
+});
+
+test('Header carries no section label — the lit bottom tab says where you are (v0.11.0)', () => {
+  assert.doesNotMatch(header, /est-brand-current/);
+  assert.doesNotMatch(header, /currentLabel/);
 });
 
 test('Header desktop is the floating glass pill', () => {
   assert.match(header, /position:\s*sticky/);
   assert.match(header, /top:\s*16px/);
   assert.match(header, /z-index:\s*30/);
+  assert.match(mediaBlock(header, '(min-width: 720px)'), /\.est-header\s*\{[^}]*margin-bottom:\s*12px/);
   assert.match(header, /background:\s*var\(--est-bar\)/);
   assert.match(header, /background:\s*var\(--est-grad-brand\)/); // brand mark ground
   assert.match(header, /background:\s*var\(--est-em-grad\)/); // Emergency pill
@@ -78,18 +96,6 @@ test('Header brand tile is the home mark, not a letter', () => {
   assert.match(header, /<circle cx="65" cy="65" r="11"/); // the Emergency button
   assert.doesNotMatch(header, /class="est-mark" aria-hidden="true">H</);
 });
-
-// The body of the first @media block whose prelude is exactly `query`.
-const mediaBlock = (src, query) => {
-  const at = src.indexOf(`@media ${query} {`);
-  if (at < 0) return null;
-  let depth = 0;
-  for (let i = src.indexOf('{', at); i < src.length; i++) {
-    if (src[i] === '{') depth++;
-    else if (src[i] === '}' && --depth === 0) return src.slice(src.indexOf('{', at) + 1, i);
-  }
-  return null;
-};
 
 test('Header compacts below 1260px: icon-only search, tighter pills (v0.10.3)', () => {
   // Six destinations: the full row needs ~1150px of viewport in SF and ~1225px in a
@@ -271,8 +277,8 @@ test('index exports the full v0.5.0 surface', () => {
   }
 });
 
-test('package version is bumped for the wide-font header release', () => {
-  assert.equal(pkg.version, '0.10.3');
+test('package version is bumped for the page-titles release', () => {
+  assert.equal(pkg.version, '0.11.0');
   assert.equal(pkg.exports['./tokens.css'], './src/tokens.css');
 });
 

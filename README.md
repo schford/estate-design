@@ -27,6 +27,18 @@ Since v0.3.3 tokens.css also sets `html { scrollbar-gutter: stable }` — centre
 layouts must not shift when navigation crosses the scrollbar threshold. Don't
 re-add per-app scrollbar/overflow fixes.
 
+## What changed in v0.11.0
+
+**Page titles sit directly under the header** (home-app `DESIGN-2026-09-30-page-titles`). Breaking for
+consumers that relied on the old air:
+
+- **Phone:** the section label (`est-brand-current`) is gone — the row is the home mark, search,
+  SOS and account. The lit bottom tab already names the section, and the page's own large title
+  sits right underneath. The header stays non-sticky. Bottom padding 22px → 10px.
+- **Desktop:** the floating pill's `margin-bottom` is a flat 12px (was `clamp(18px, 2.5vw, 28px)`).
+
+Consumers own the title and the gap below it; put no top padding on the page shell.
+
 ## What changed in v0.10.3
 
 **Header holds with fonts up to ~20% wider than SF.** v0.10.2's steps were tuned in SF on a Mac
@@ -240,12 +252,11 @@ icon square; below 1060px Emergency reads "SOS", the account shows its person
 icon and the lockup drops the word "Home"; below 800px the pills drop to 14px
 and the divider goes (v0.10.3).
 
-**Phone (<720px)** is a compact, **non-sticky** header row: the `H` mark plus
-the *adaptive current-section label* (`est-brand-current` — a deliberate
-deviation from the mock's static "Home", carried over from v0.4), a 38px glass
-search square, and an "SOS" gradient pill. Emergency stays reachable at every
-width. Top padding is
-`max(52px, calc(env(safe-area-inset-top, 0px) + 12px))`, so the app's viewport
+**Phone (<720px)** is a compact, **non-sticky** header row: the home mark, a
+38px glass search square, an "SOS" gradient pill and the account square. No
+section label (v0.11.0) — the lit bottom tab names the section. Emergency stays
+reachable at every width. Padding is
+`calc(env(safe-area-inset-top, 0px) + 12px) 18px 10px`, so the app's viewport
 meta needs `viewport-fit=cover`.
 
 The `--est-header-bg` hook is **gone**. There is one canvas now; the header pill

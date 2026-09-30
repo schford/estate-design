@@ -6,9 +6,9 @@
   // chat is intentionally absent here — the bubble is a BottomTabs/app concern.
   // account: optional {label, href} — the signed-in person's account link (or
   // "Sign in"); never a nav destination.
+  // No section label on phone since v0.11.0 — the lit bottom tab says where you are.
   let { homeUrl = '/', emergencyUrl, searchApi, destinations = [], current = 'home', account = null } = $props();
   let searchOpen = $state(false);
-  const currentLabel = $derived(destinations.find((d) => d.key === current)?.label ?? 'Home');
   function onKey(e) {
     if ((e.metaKey || e.ctrlKey) && e.key === 'k') { e.preventDefault(); searchOpen = true; }
     else if (e.key === '/' && !/^(INPUT|TEXTAREA)$/.test(e.target.tagName)) {
@@ -50,7 +50,6 @@
         </svg>
       </span>
       <span class="est-brand-word">Home</span>
-      <span class="est-brand-current" aria-hidden="true">{currentLabel}</span>
     </a>
 
     <span class="est-divider" aria-hidden="true"></span>
@@ -103,8 +102,9 @@
        2026-09-17); the inset only bites in a Home Screen launch, where it
        carries the row clear of the notch. The old 52px floor (a max() against
        the inset) came from the Nebula mock's fake status bar and was 52px of
-       dead air in Safari. */
-    padding: calc(env(safe-area-inset-top, 0px) + 12px) 18px 22px;
+       dead air in Safari. Bottom is 10px since v0.11.0: the page title sits
+       directly under the row. */
+    padding: calc(env(safe-area-inset-top, 0px) + 12px) 18px 10px;
   }
 
   .est-brand {
@@ -123,10 +123,6 @@
   }
   .est-mark-svg { width: 100%; height: 100%; display: block; }
   .est-brand-word { display: none; font-size: 17px; font-weight: 600; letter-spacing: -0.02em; }
-  .est-brand-current {
-    font-size: 17px; font-weight: 600; letter-spacing: -0.02em; color: var(--est-ink);
-    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-  }
 
   .est-divider { display: none; width: 0.5px; height: 22px; flex: none;
     background: rgba(22, 22, 42, 0.13); margin: 0 4px; }
@@ -183,7 +179,7 @@
       display: flex;
       justify-content: center;
       padding: 0 var(--est-content-pad, 20px);
-      margin-bottom: clamp(18px, 2.5vw, 28px);
+      margin-bottom: 12px;
     }
 
     .est-in {
@@ -205,7 +201,6 @@
     .est-brand { gap: 10px; padding: 4px 12px 4px 4px; flex: none; }
     .est-mark { width: 32px; height: 32px; border-radius: 11px; }
     .est-brand-word { display: block; }
-    .est-brand-current { display: none; }
 
     .est-divider { display: block; }
 
